@@ -1,5 +1,7 @@
 package taller2;
 
+import java.util.List;
+
 public class progenitores {
 	
 	private String nombre;
@@ -7,7 +9,7 @@ public class progenitores {
 	private String rut;
 	private String rut_pareja;
 	private String rut_madre;
-	
+	private List<descendientes> listaDescendientes; 
 	public progenitores(String nombre, int edad, String rut,String rut_pareja, String rut_madre) {
 		
 		
@@ -56,5 +58,13 @@ public class progenitores {
 
 	public void setRut_madre(String rut_madre) {
 		this.rut_madre = rut_madre;
+	}
+
+	public List<descendientes> getListaDescendientes() {
+		return listaDescendientes;
+	}
+
+	public void setListaDescendientes(List<descendientes> listaDescendientes) {
+		this.listaDescendientes = listaDescendientes;
 	}
 }

@@ -11,7 +11,7 @@ public class progenitoras {
 	private String rut_pareja;
 	private List<descendientes> listaDescendientes; 
 	
-	public progenitoras(String nombre, String rut, int edad, String rut_madre, String rut_pareja, List<descendientes> listaDescendientes) {
+	public progenitoras(String nombre, String rut, int edad, String rut_madre, String rut_pareja) {
 		
 		
 		this.nombre = nombre;
@@ -19,7 +19,7 @@ public class progenitoras {
 		this.edad = edad;
 		this.rut_madre = rut_madre;
 		this.rut_pareja = rut_pareja;
-		this.listaDescendientes = listaDescendientes;
+
 	}
 
 
@@ -80,5 +80,12 @@ public class progenitoras {
 
 	public void setRut_pareja(String rut_pareja) {
 		this.rut_pareja = rut_pareja;
+	}
+
+
+	@Override
+	public String toString() {
+		return "progenitoras [nombre=" + nombre + ", rut=" + rut + ", edad=" + edad + ", rut_madre=" + rut_madre
+				+ ", rut_pareja=" + rut_pareja + ", listaDescendientes=" + listaDescendientes + "]";
 	}
 }

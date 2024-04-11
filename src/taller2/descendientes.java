@@ -1,11 +1,13 @@
 package taller2;
 
-public class descendientes {
+import java.util.List;
+
+public class descendientes implements List<descendientes> {
 	
 	private String nombre;
 	private int edad;
 	private String rut;
-	private progenitoras rut_madre;
+	private String rut_madre;
 	private progenitores rut_padre;
 	
 	
@@ -15,6 +17,7 @@ public class descendientes {
 		this.nombre = nombre;
 		this.rut = rut;
 		this.edad = edad;
+		this.rut_madre = rut_madre;
 	}
 
 
@@ -48,12 +51,12 @@ public class descendientes {
 	}
 
 
-	public progenitoras getRut_madre() {
+	public String getRut_madre() {
 		return rut_madre;
 	}
 
 
-	public void setRut_madre(progenitoras rut_madre) {
+	public void setRut_madre(String rut_madre) {
 		this.rut_madre = rut_madre;
 	}
 
@@ -65,5 +68,12 @@ public class descendientes {
 
 	public void setRut_padre(progenitores rut_padre) {
 		this.rut_padre = rut_padre;
+	}
+
+
+	@Override
+	public String toString() {
+		return "descendientes [nombre=" + nombre + ", edad=" + edad + ", rut=" + rut + ", rut_madre=" + rut_madre
+				+ ", rut_padre=" + rut_padre + "]";
 	}
 }
