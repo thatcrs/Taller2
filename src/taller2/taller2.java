@@ -14,6 +14,10 @@ public class taller2 {
 		Scanner archivo1 = new Scanner(archivo_descendientes);
 		List<Persona> descendientes = new ArrayList<Persona>();
 		int i=0;
+		int j=0;
+		List<Persona> todas_las_personas= new ArrayList<Persona>();
+		
+		
 		while (archivo1.hasNextLine()) {
 			
 			
@@ -27,16 +31,22 @@ public class taller2 {
 			
 			descendientes.add(new Persona(nombre,rut,edad,rut_madre));
 			descendientes.get(i).setRut_padre(rut_padre);
+			
+			todas_las_personas.add(new Persona(nombre,rut,edad,rut_madre));
+			todas_las_personas.get(j).setRut_padre(rut_padre);
+			
 			i++;
+			j++;
+			
 	}
 
 
-		System.out.println(descendientes.get(0).getRut_madre());
+		
 		File archivo_progenitoras = new File("progenitoras.txt");
 		Scanner archivo2 = new Scanner(archivo_progenitoras); //archivo progenitoras.
 		List<Persona> progenitoras = new ArrayList<Persona>();
 		i = 0;
-		int j = 0;
+		
 		while (archivo2.hasNextLine()) {
 			
 			
@@ -49,9 +59,13 @@ public class taller2 {
 			String rut_madre = partes[4];
 			progenitoras.add(new Persona(nombre,rut,edad,rut_madre));
 			progenitoras.get(i).setRut_pareja(rut_pareja);
+			todas_las_personas.add(new Persona(nombre,rut,edad,rut_madre));
+			todas_las_personas.get(j).setRut_pareja(rut_pareja);
+			
+			j++;
 			i++;
 		}
-	System.out.println(descendientes);
+	
 		
 	File archivo_progenitores = new File("progenitores.txt");
 	Scanner archivo3 = new Scanner(archivo_progenitores); //archivo progenitores.
@@ -70,10 +84,79 @@ public class taller2 {
 		String rut_madre = partes[3];
 		progenitores.add(new Persona(nombre,rut,edad,rut_madre));
 		progenitores.get(i).setRut_pareja(rut_pareja);
+		todas_las_personas.add(new Persona(nombre,rut,edad,rut_madre));
+		todas_las_personas.get(j).setRut_pareja(rut_pareja);	
+	
+		j++;
+		i++;
+		
 	}
-	System.out.println(progenitores);
+		
+	for (Persona copia:todas_las_personas) {
+			
+		if (copia.getRut_padre() != "NO-IDENTIFICA") {
+			 
+			String rut_padre = copia.getRut_padre();
+				
+			for (Persona copia2:todas_las_personas) {
+				
+				if (copia2.getRut().equals(rut_padre)){
+					
+					int persona1 = todas_las_personas.indexOf(copia);
+					int persona2 = todas_las_personas.indexOf(copia2);
+									
+					todas_las_personas.get(persona1).setRut_padre(rut_padre);
+					todas_las_personas.get(persona1).setPadre(copia2);
+					
+					todas_las_personas.get(persona2).setListaDescendientes(copia);
+				} else {
+					
+					
+					
+				}
+			}
+		}	
+			if (copia.getRut_madre() != "NO-IDENTIFICA") {
+				String rut_madre = copia.getRut_madre();
+				
+				for (Persona copia2:todas_las_personas) {
+					
+					if (copia2.getRut().equals(rut_madre)){
+						
+						int persona1 = todas_las_personas.indexOf(copia);
+						int persona2 = todas_las_personas.indexOf(copia2);
+										
+						todas_las_personas.get(persona1).setRut_madre(rut_madre);
+						todas_las_personas.get(persona1).setMadre(copia2);
+						
+						todas_las_personas.get(persona2).setListaDescendientes(copia);
+					}
+				}
+			}		
 	}
+	for (Persona copia3:todas_las_personas) {
+		
+		System.out.println(copia3);
+		
+	}
+			
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //			
