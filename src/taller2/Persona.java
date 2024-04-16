@@ -28,6 +28,12 @@ public class Persona {
 		this.listaDescendientes=new ArrayList<Persona>();
 		this.listaHermanos=new ArrayList<Persona>();
 		
+		
+		
+		this.padre = padre;
+		
+		
+		
 		if (rut_pareja == null) {
 			
 			rut_pareja = "NO-IDENTIFICA";

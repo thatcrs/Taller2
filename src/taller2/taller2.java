@@ -134,15 +134,50 @@ public class taller2 {
 				}
 			}		
 	}
-	for (Persona copia3:todas_las_personas) {
-		
-		System.out.println(copia3);
-		
-	}
-			
-	}
 	
+	Scanner lector = new Scanner(System.in);
+	
+	System.out.println("Cual es tu rut (Forma 12.345.678-0");
+	
+	String rut_nuevo = lector.nextLine();
+	
+	for (Persona copia4:todas_las_personas) {
+		
+		if (copia4.getRut().equals(rut_nuevo)) {
+			
+			if (copia4.getMadre()==null) {
+				
+				System.out.println("NO TENI MAMÁ WUAJAJA");
+			} else {
+			System.out.println("Tu madre es " + copia4.getMadre().getNombre());
+			}
+			if (copia4.getPadre()==null) {
+				
+				System.out.println("NO TENI PAPÁ WUAJAJA");
+			} else {
+			System.out.println("Tu padre es " + copia4.getPadre().getNombre());
+			}
+		}
+			
+			
+	}	
 }
+}
+	
+//	for (Persona copia3:todas_las_personas) {
+//		if (copia3.getMadre()==null) {
+//			
+//			System.out.println("NO TENI MAMÁ WUAJAJA");
+//		} else {
+//		System.out.println(copia3.getMadre().getNombre());
+//		}
+//	}
+//	for (Persona copia3:todas_las_personas) {
+//		
+//		System.out.println(copia3);
+//			
+//	}
+	
 
 
 
