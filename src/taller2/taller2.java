@@ -195,7 +195,7 @@ public class taller2 {
 					System.out.println(copia4.getListaDescendientes().get(i).getNombre());
 			}
 			}
-			if (copia4.getRut_pareja() == null) {
+			if (copia4.getPareja() == null) {
 					System.out.println("No tienes pareja");
 			}else {
 				System.out.println("Tu pareja es: " + copia4.getPareja().getNombre());
