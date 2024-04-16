@@ -92,55 +92,74 @@ public class taller2 {
 		
 	}
 		
-	for (Persona copia:todas_las_personas) {
-			
-		if (copia.getRut_padre() != "NO-IDENTIFICA") {
-			 
-			String rut_padre = copia.getRut_padre();
-				
-			for (Persona copia2:todas_las_personas) {
-				
-				if (copia2.getRut().equals(rut_padre)){
-					
-					int persona1 = todas_las_personas.indexOf(copia);
-					int persona2 = todas_las_personas.indexOf(copia2);
-									
-					todas_las_personas.get(persona1).setRut_padre(rut_padre);
-					todas_las_personas.get(persona1).setPadre(copia2);
-					
-					todas_las_personas.get(persona2).setListaDescendientes(copia);
-				} else {
-					
-					
-					
-				}
-			}
-		}	
-			if (copia.getRut_madre() != "NO-IDENTIFICA") {
-				String rut_madre = copia.getRut_madre();
-				
-				for (Persona copia2:todas_las_personas) {
-					
-					if (copia2.getRut().equals(rut_madre)){
-						
-						int persona1 = todas_las_personas.indexOf(copia);
-						int persona2 = todas_las_personas.indexOf(copia2);
-										
-						todas_las_personas.get(persona1).setRut_madre(rut_madre);
-						todas_las_personas.get(persona1).setMadre(copia2);
-						
-						todas_las_personas.get(persona2).setListaDescendientes(copia);
-					}
-				}
-			}		
-	}
+	AsignarPersonas(todas_las_personas);
+//	for (Persona copia:todas_las_personas) {
+//			
+//		if (copia.getRut_padre() != "NO-IDENTIFICA") {
+//			 
+//			String rut_padre = copia.getRut_padre();
+//				
+//			for (Persona copia2:todas_las_personas) {
+//				
+//				if (copia2.getRut().equals(rut_padre)){
+//					
+//					int persona1 = todas_las_personas.indexOf(copia);
+//					int persona2 = todas_las_personas.indexOf(copia2);
+//									
+//					todas_las_personas.get(persona1).setRut_padre(rut_padre);
+//					todas_las_personas.get(persona1).setPadre(copia2);
+//					
+//					todas_las_personas.get(persona2).setListaDescendientes(copia);
+//				} else {
+//					
+//					
+//					
+//				}
+//			}
+//		}	
+//			if (copia.getRut_madre() != "NO-IDENTIFICA") {
+//				String rut_madre = copia.getRut_madre();
+//				
+//				for (Persona copia2:todas_las_personas) {
+//					
+//					if (copia2.getRut().equals(rut_madre)){
+//						
+//						int persona1 = todas_las_personas.indexOf(copia);
+//						int persona2 = todas_las_personas.indexOf(copia2);
+//										
+//						todas_las_personas.get(persona1).setRut_madre(rut_madre);
+//						todas_las_personas.get(persona1).setMadre(copia2);
+//						
+//						todas_las_personas.get(persona2).setListaDescendientes(copia);
+//					}
+//				}
+//			}
+//			if (copia.getRut_pareja() != "NO-IDENTIFICA") {
+//				String rut_pareja = copia.getRut_pareja();
+//				
+//				for (Persona copia2:todas_las_personas) {
+//					
+//					if (copia2.getRut().equals(rut_pareja)) {
+//						
+//						int persona1 = todas_las_personas.indexOf(copia);
+//						int persona2 = todas_las_personas.indexOf(copia2);
+//						
+//						todas_las_personas.get(persona1).setRut_pareja(rut_pareja);
+//						todas_las_personas.get(persona1).setPareja(copia2);
+//						
+//					}
+//				}
+//			}
+//	}
 	
 	Scanner lector = new Scanner(System.in);
 	
 	System.out.println("Cual es tu rut (Forma 12.345.678-0");
 	
 	String rut_nuevo = lector.nextLine();
-	
+	i=0;
+
+	//BUSCADOR DE FAMILIARES, ITEM 1, A)
 	for (Persona copia4:todas_las_personas) {
 		
 		if (copia4.getRut().equals(rut_nuevo)) {
@@ -157,28 +176,104 @@ public class taller2 {
 			} else {
 			System.out.println("Tu padre es " + copia4.getPadre().getNombre());
 			}
+			if (copia4.getListaHermanos().size() == 0) {
+				
+				System.out.println("NO TIENES HERMANOS");
+			}else {
+				
+				for (i=0;i<copia4.getListaHermanos().size();i++) {
+					System.out.println(copia4.getListaHermanos().get(i).getNombre());
+			}
+			}
+			i=0;
+			if (copia4.getListaDescendientes().size() == 0) {
+				
+				System.out.println("NO TIENES HIJOS");
+			}else {
+				System.out.println("Tienes "+ copia4.getListaDescendientes().size() + " Hijos, y estos son:");
+				for (i=0;i<copia4.getListaDescendientes().size();i++) {
+					System.out.println(copia4.getListaDescendientes().get(i).getNombre());
+			}
+			}
+			if (copia4.getRut_pareja() == null) {
+					System.out.println("No tienes pareja");
+			}else {
+				System.out.println("Tu pareja es: " + copia4.getPareja().getNombre());
+			}
 		}
-			
-			
-	}	
-}
-}
+	}
 	
-//	for (Persona copia3:todas_las_personas) {
-//		if (copia3.getMadre()==null) {
-//			
-//			System.out.println("NO TENI MAMÁ WUAJAJA");
-//		} else {
-//		System.out.println(copia3.getMadre().getNombre());
-//		}
-//	}
-//	for (Persona copia3:todas_las_personas) {
-//		
-//		System.out.println(copia3);
-//			
-//	}
+	}
+
+	
+		
 	
 
+public static List<Persona> AsignarPersonas(List<Persona> todas_las_personas) {
+	
+	for (Persona copia1:todas_las_personas) {
+
+		if (copia1.getRut_madre() != "NO-IDENTIFICA") {
+		String rut_madre = copia1.getRut_madre();
+		
+			for (Persona copia2 : todas_las_personas) {
+				
+				if (copia2.getRut().equals(rut_madre)) {
+					
+					int persona1 = todas_las_personas.indexOf(copia1);
+					int persona2 = todas_las_personas.indexOf(copia2);
+					
+					todas_las_personas.get(persona1).setRut_madre(rut_madre);
+					todas_las_personas.get(persona1).setMadre(copia2);
+					
+					todas_las_personas.get(persona2).setListaDescendientes(copia1);
+			}
+		}
+	
+	}
+	
+		if (copia1.getRut_padre() != "NO-IDENTIFICA") {
+			String rut_padre = copia1.getRut_padre();
+			
+			for (Persona copia2 : todas_las_personas) {
+				
+				if (copia2.getRut().equals(rut_padre)) {
+					int persona1 = todas_las_personas.indexOf(copia1);
+					int persona2 = todas_las_personas.indexOf(copia2);
+					
+					todas_las_personas.get(persona1).setRut_padre(rut_padre);
+					todas_las_personas.get(persona1).setPadre(copia2);
+					
+					todas_las_personas.get(persona2).setListaDescendientes(copia1);
+		}
+	}
+}
+				
+
+
+		if (copia1.getRut_pareja() != "NO-IDENTIFICA") {
+			String rut_pareja = copia1.getRut_pareja();
+			
+			for (Persona copia2 : todas_las_personas) { 
+				
+				if (copia2.getRut().equals(rut_pareja)) {
+				
+					int persona1 = todas_las_personas.indexOf(copia1);
+					int persona2 = todas_las_personas.indexOf(copia2);
+				
+				
+					todas_las_personas.get(persona1).setRut_pareja(rut_pareja);
+					todas_las_personas.get(persona1).setPareja(copia2);
+			
+		}
+		}
+		}
+	
+}
+	
+	return todas_las_personas;
+}
+}
 
 
 
@@ -233,6 +328,11 @@ public class taller2 {
 //		archivo2.close();
 //		System.out.println("ola");
 //
-//			}
-//}
+//			}	for (Persona copia:todas_las_personas) {
 //
+
+
+
+
+
+

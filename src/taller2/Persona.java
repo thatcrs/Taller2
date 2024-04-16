@@ -15,8 +15,10 @@ public class Persona {
 	private Persona madre;
 	private Persona padre;
 	private List<Persona> listaHermanos;
+	private Persona pareja;
 	
 	
+
 	public Persona(String nombre, String rut, int edad, String rut_madre) {
 		
 		this.nombre = nombre;
@@ -127,7 +129,14 @@ public class Persona {
 	public void setListaHermanos(Persona hermano) {
 		this.listaHermanos.add(hermano);
 	}	
-	
+	public Persona getPareja() {
+		return pareja;
+	}
+
+	public void setPareja(Persona pareja) {
+		this.pareja = pareja;
+	}
+
 	
 	
 	
