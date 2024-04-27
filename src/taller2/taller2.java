@@ -93,6 +93,9 @@ public class taller2 {
 	}
 		
 	AsignarPersonas(todas_las_personas);
+	BuscarMadreMasHijos(todas_las_personas);
+	BuscarPadreMasHijos(todas_las_personas);
+	BuscarMadresSolteras(todas_las_personas);
 	Scanner lector = new Scanner(System.in);
 	System.out.println("Cual es tu rut (Forma 12.345.678-0");
 	String rut_nuevo = lector.nextLine();
@@ -106,9 +109,11 @@ public class taller2 {
 
 
 	
-		
+	
+
+
 	//Agregar una persona a la base de datos, creandola desde 0;
-	private static List<Persona> AgregarPersonas(Scanner lector,List<Persona> todas_las_personas) {
+private static List<Persona> AgregarPersonas(Scanner lector,List<Persona> todas_las_personas) {
 		// TODO Auto-generated method stub
 		
 		System.out.println("Ingrese rut y nombre de la persona que desea agregar");
@@ -129,7 +134,6 @@ public class taller2 {
 		
 		System.out.println("Cuantos hijos tiene esta persona? ");
 		int cantidad_hijos = Integer.parseInt(lector.nextLine());
-		List<Persona> hijos = new ArrayList<Persona>();
 		if (cantidad_hijos != 0) {
 			
 			for (int i=0;i<cantidad_hijos;i++) {
@@ -143,11 +147,13 @@ public class taller2 {
 				
 				Persona hijo_nuevo = new Persona(hijo,nombre_hijo,edad_hijo,rut);
 				persona_nueva.setListaDescendientes(hijo_nuevo);
+				hijo_nuevo.setMadre(persona_nueva);
 				todas_las_personas.add(hijo_nuevo);
 			}else if (sexo_elegido == 2) {
 				
-				Persona hijo_nuevo = new Persona(nombre_hijo,hijo,edad_hijo,"NO IDENTIFICADO");
+				Persona hijo_nuevo = new Persona(nombre_hijo,hijo,edad_hijo,"NO IDENTIFICA");
 				hijo_nuevo.setRut_padre(rut);
+				hijo_nuevo.setPadre(persona_nueva);
 				persona_nueva.setListaDescendientes(hijo_nuevo);
 				todas_las_personas.add(hijo_nuevo);
 			}
@@ -176,10 +182,6 @@ public class taller2 {
 		todas_las_personas.add(persona_nueva);
 		return todas_las_personas;
 	}
-
-
-
-
 
 	//BUSCADOR DE FAMILIARES, ITEM 1, A)
 private static void BuscadorPersonas(String rut_nuevo, List<Persona> todas_las_personas) {
@@ -295,10 +297,84 @@ public static List<Persona> AsignarPersonas(List<Persona> todas_las_personas) {
 	
 	return todas_las_personas;
 }
+//COMO SU NOMBRE LO DICE, BUSCA LA MADRE CON MAS HIJOS.
+public static void BuscarMadreMasHijos(List<Persona> todas_las_personas) {
+	
+	int cantidad_madre_con_mas_hijos = -9994;
+	String rut_madre_con_mas_hijos = "";
+	String nombre_rut_madre_con_mas_hijos = "";
+	for (Persona persona : todas_las_personas) {
+		
+		if (persona.getListaDescendientes().size()>cantidad_madre_con_mas_hijos) {
+						
+			for(Persona hijos : persona.getListaDescendientes()) {
+				
+				if (hijos.getRut_madre().equals(persona.getRut())) {
+					
+					cantidad_madre_con_mas_hijos = persona.getListaDescendientes().size();
+					rut_madre_con_mas_hijos = hijos.getRut_madre();
+					nombre_rut_madre_con_mas_hijos = hijos.getMadre().getNombre();
+				}
+				
+			
+	}
+	
+}
+
+}
+	System.out.println(nombre_rut_madre_con_mas_hijos + " " + cantidad_madre_con_mas_hijos );
+}
+private static void BuscarPadreMasHijos(List<Persona> todas_las_personas) {
+	// TODO Auto-generated method stub
+	int cantidad_padre_con_mas_hijos = -9994;
+	String rut_padre_con_mas_hijos = "";
+	String nombre_padre_con_mas_hijos = "";
+	for (Persona persona : todas_las_personas) {
+		
+		if (persona.getListaDescendientes().size()>cantidad_padre_con_mas_hijos) {
+						
+			for(Persona hijos : persona.getListaDescendientes()) {
+				
+				if (hijos.getRut_padre().equals(persona.getRut())) {
+					
+					cantidad_padre_con_mas_hijos = persona.getListaDescendientes().size();
+					rut_padre_con_mas_hijos = hijos.getRut_padre();
+					nombre_padre_con_mas_hijos = hijos.getPadre().getNombre();
+				}
+				
+			
+	}
+	
+}
+
+}
+	System.out.println(nombre_padre_con_mas_hijos + " " + cantidad_padre_con_mas_hijos );
 }
 
 
 
 
-
+private static void BuscarMadresSolteras(List<Persona> todas_las_personas) {
+	
+	List<String> madres_solteras = new ArrayList<String>();
+	System.out.println(madres_solteras);
+	for (Persona persona : todas_las_personas) {
+		
+		
+		if (persona.getRut_padre().equals(null) || persona.getRut_padre().equals("NO-IDENTIFICA") || persona.getMadre().getRut_pareja().equals("NO-IDENTIFICA")) {
+			
+			
+			if(persona.getMadre() != null) {
+			System.out.println(persona.getMadre().getNombre());
+			madres_solteras.add(persona.getMadre().getNombre());
+			}
+		}
+	}
+	System.out.println(madres_solteras);
+	for(String madre : madres_solteras) {
+		
+		System.out.println(madre);
+	}
+}
+}
 
