@@ -93,122 +93,144 @@ public class taller2 {
 	}
 		
 	AsignarPersonas(todas_las_personas);
-//	for (Persona copia:todas_las_personas) {
-//			
-//		if (copia.getRut_padre() != "NO-IDENTIFICA") {
-//			 
-//			String rut_padre = copia.getRut_padre();
-//				
-//			for (Persona copia2:todas_las_personas) {
-//				
-//				if (copia2.getRut().equals(rut_padre)){
-//					
-//					int persona1 = todas_las_personas.indexOf(copia);
-//					int persona2 = todas_las_personas.indexOf(copia2);
-//									
-//					todas_las_personas.get(persona1).setRut_padre(rut_padre);
-//					todas_las_personas.get(persona1).setPadre(copia2);
-//					
-//					todas_las_personas.get(persona2).setListaDescendientes(copia);
-//				} else {
-//					
-//					
-//					
-//				}
-//			}
-//		}	
-//			if (copia.getRut_madre() != "NO-IDENTIFICA") {
-//				String rut_madre = copia.getRut_madre();
-//				
-//				for (Persona copia2:todas_las_personas) {
-//					
-//					if (copia2.getRut().equals(rut_madre)){
-//						
-//						int persona1 = todas_las_personas.indexOf(copia);
-//						int persona2 = todas_las_personas.indexOf(copia2);
-//										
-//						todas_las_personas.get(persona1).setRut_madre(rut_madre);
-//						todas_las_personas.get(persona1).setMadre(copia2);
-//						
-//						todas_las_personas.get(persona2).setListaDescendientes(copia);
-//					}
-//				}
-//			}
-//			if (copia.getRut_pareja() != "NO-IDENTIFICA") {
-//				String rut_pareja = copia.getRut_pareja();
-//				
-//				for (Persona copia2:todas_las_personas) {
-//					
-//					if (copia2.getRut().equals(rut_pareja)) {
-//						
-//						int persona1 = todas_las_personas.indexOf(copia);
-//						int persona2 = todas_las_personas.indexOf(copia2);
-//						
-//						todas_las_personas.get(persona1).setRut_pareja(rut_pareja);
-//						todas_las_personas.get(persona1).setPareja(copia2);
-//						
-//					}
-//				}
-//			}
-//	}
-	
 	Scanner lector = new Scanner(System.in);
-	
 	System.out.println("Cual es tu rut (Forma 12.345.678-0");
-	
 	String rut_nuevo = lector.nextLine();
 	i=0;
+	BuscadorPersonas(rut_nuevo,todas_las_personas);
+	AgregarPersonas(lector,todas_las_personas);
+	System.out.println("Cual es tu rut (Forma 12.345.678-0");
+	rut_nuevo = lector.nextLine();
+	BuscadorPersonas(rut_nuevo,todas_las_personas);
+	}
+
+
+	
+		
+	//Agregar una persona a la base de datos, creandola desde 0;
+	private static List<Persona> AgregarPersonas(Scanner lector,List<Persona> todas_las_personas) {
+		// TODO Auto-generated method stub
+		
+		System.out.println("Ingrese rut y nombre de la persona que desea agregar");
+		String rut = lector.nextLine();
+		String nombre = lector.nextLine();
+		System.out.println("Esta persona de que sexo es?(1 Femenino/2 Masculino)");
+		
+		int sexo_elegido = Integer.parseInt(lector.nextLine());
+		int edad = Integer.parseInt(lector.nextLine());
+		
+		System.out.println("Ingrese ruts de familiares, primero Madre, Padre y Pareja, si no es conocido, solo escribír: NO-IDENTIFICA");
+		String madre = lector.nextLine();
+		String padre = lector.nextLine();
+		String pareja = lector.nextLine();
+		Persona persona_nueva = new Persona(nombre,rut,edad,madre);
+		persona_nueva.setRut_padre(padre);
+		persona_nueva.setRut_pareja(pareja);
+		
+		System.out.println("Cuantos hijos tiene esta persona? ");
+		int cantidad_hijos = Integer.parseInt(lector.nextLine());
+		List<Persona> hijos = new ArrayList<Persona>();
+		if (cantidad_hijos != 0) {
+			
+			for (int i=0;i<cantidad_hijos;i++) {
+				
+			System.out.println("Ingrese rut, nombre y edad del hijo numero "+ (i+1));
+			String hijo = lector.nextLine();
+			String nombre_hijo = lector.nextLine();
+			int edad_hijo = Integer.parseInt(lector.nextLine());
+			
+			if (sexo_elegido == 1) {
+				
+				Persona hijo_nuevo = new Persona(hijo,nombre_hijo,edad_hijo,rut);
+				persona_nueva.setListaDescendientes(hijo_nuevo);
+				todas_las_personas.add(hijo_nuevo);
+			}else if (sexo_elegido == 2) {
+				
+				Persona hijo_nuevo = new Persona(nombre_hijo,hijo,edad_hijo,"NO IDENTIFICADO");
+				hijo_nuevo.setRut_padre(rut);
+				persona_nueva.setListaDescendientes(hijo_nuevo);
+				todas_las_personas.add(hijo_nuevo);
+			}
+			
+		}
+		}
+		for (Persona persona : todas_las_personas) {
+			
+			if (persona.getRut_madre() != "NO-IDENTIFICA") {
+				
+				if (persona_nueva.getRut_madre().equals(persona.getRut())) {
+					
+					persona_nueva.setMadre(persona);
+					persona.setListaDescendientes(persona_nueva);
+					
+				}
+			}if (persona.getRut_padre() != "NO-IDENTIFICA") {
+				
+				if (persona_nueva.getRut_padre().equals(persona.getRut())) {
+					
+					persona_nueva.setPadre(persona);
+					persona.setListaDescendientes(persona_nueva);
+				}
+		}
+		}
+		todas_las_personas.add(persona_nueva);
+		return todas_las_personas;
+	}
+
+
+
+
 
 	//BUSCADOR DE FAMILIARES, ITEM 1, A)
-	for (Persona copia4:todas_las_personas) {
+private static void BuscadorPersonas(String rut_nuevo, List<Persona> todas_las_personas) {
+		// TODO Auto-generated method stub
+		int i=0;
+for (Persona copia:todas_las_personas) {
 		
-		if (copia4.getRut().equals(rut_nuevo)) {
+		if (copia.getRut().equals(rut_nuevo)) {
 			
-			if (copia4.getMadre()==null) {
+			if (copia.getMadre()==null) {
 				
-				System.out.println("NO TENI MAMÁ WUAJAJA");
+				System.out.println("Madre no identificada.");
 			} else {
-			System.out.println("Tu madre es " + copia4.getMadre().getNombre());
+			System.out.println("Tu madre es " + copia.getMadre().getNombre());
 			}
-			if (copia4.getPadre()==null) {
+			if (copia.getPadre()==null) {
 				
-				System.out.println("NO TENI PAPÁ WUAJAJA");
+				System.out.println("Padre no identificado.");
 			} else {
-			System.out.println("Tu padre es " + copia4.getPadre().getNombre());
+			System.out.println("Tu padre es " + copia.getPadre().getNombre());
 			}
-			if (copia4.getListaHermanos().size() == 0) {
+			if (copia.getListaHermanos().size() == 0) {
 				
-				System.out.println("NO TIENES HERMANOS");
+				System.out.println("Hermanos no identificados.");
 			}else {
 				
-				for (i=0;i<copia4.getListaHermanos().size();i++) {
-					System.out.println(copia4.getListaHermanos().get(i).getNombre());
+				for (i=0;i<copia.getListaHermanos().size();i++) {
+					System.out.println(copia.getListaHermanos().get(i).getNombre());
 			}
 			}
 			i=0;
-			if (copia4.getListaDescendientes().size() == 0) {
+			if (copia.getListaDescendientes().size() == 0) {
 				
 				System.out.println("NO TIENES HIJOS");
 			}else {
-				System.out.println("Tienes "+ copia4.getListaDescendientes().size() + " Hijos, y estos son:");
-				for (i=0;i<copia4.getListaDescendientes().size();i++) {
-					System.out.println(copia4.getListaDescendientes().get(i).getNombre());
+				System.out.println("Tienes "+ copia.getListaDescendientes().size() + " Hijos, y estos son:");
+				for (i=0;i<copia.getListaDescendientes().size();i++) {
+					System.out.println(copia.getListaDescendientes().get(i).getNombre());
 			}
 			}
-			if (copia4.getPareja() == null) {
+			if (copia.getPareja() == null) {
 					System.out.println("No tienes pareja");
 			}else {
-				System.out.println("Tu pareja es: " + copia4.getPareja().getNombre());
+				System.out.println("Tu pareja es: " + copia.getPareja().getNombre());
 			}
 		}
-	}
-	
-	}
+		}
+}
 
-	
-		
-	
 
+//ASIGNADOR DE PERSONAS.
 public static List<Persona> AsignarPersonas(List<Persona> todas_las_personas) {
 	
 	for (Persona copia1:todas_las_personas) {
@@ -274,62 +296,6 @@ public static List<Persona> AsignarPersonas(List<Persona> todas_las_personas) {
 	return todas_las_personas;
 }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//			
-//			}
-//		System.out.println(progenitoras.size());
-//		System.out.println(descendientes.size());
-//		
-//		
-//		for(progenitoras progenitorass : progenitoras) {
-//			
-//			for (progenitoras progenitorass2 : progenitoras) {
-//				
-//				
-//				if (progenitorass.getRut().equals(progenitorass2.getRut_madre())) {
-//								
-//					progenitorass.setListaDescendientes(progenitorass2);
-//				}
-//				j++;
-//
-//		}
-//		}
-//		System.out.println(progenitoras.get(1).getListaDescendientes());
-//		for(progenitoras progenitorass : progenitoras) {
-//		
-//			for (descendientes descendientess : descendientes) {
-//				
-//				
-//				if (progenitorass.getRut().equals(descendientess.getRut_madre())) {
-//								
-//					progenitorass.setListaDescendientes(descendientess);
-//				}
-//				j++;
-//
-//		}
-//
-//		}
-//		System.out.println(progenitoras.get(0).toString());
-//		archivo1.close();
-//		archivo2.close();
-//		System.out.println("ola");
-//
-//			}	for (Persona copia:todas_las_personas) {
-//
 
 
 
